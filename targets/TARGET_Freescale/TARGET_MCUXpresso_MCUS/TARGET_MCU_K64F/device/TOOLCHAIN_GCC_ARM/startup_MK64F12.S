@@ -312,7 +312,7 @@ __isr_vector:
     .long 0xFFFFFFFF
     .long 0xFFFFFFFE
 
-    .text
+    .section ".text.main"
     .thumb
 
 /* Reset Handler */
@@ -408,6 +408,8 @@ Reset_Handler:
 #endif
     .pool
     .size Reset_Handler, . - Reset_Handler
+
+.section ".text"
 
     .align  1
     .thumb_func

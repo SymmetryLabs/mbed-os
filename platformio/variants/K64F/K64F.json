@@ -38,6 +38,8 @@
             "-Wvla"
         ], 
         "ld": [
+            "-DMBED_APP_START=0xC000",
+            "-DMBED_APP_SIZE=0x73000",
             "-mcpu=cortex-m4", 
             "-mthumb", 
             "-mfpu=fpv4-sp-d16", 

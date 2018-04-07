@@ -118,6 +118,7 @@ SECTIONS
     __uvisor_main_end = .;
 
     . = ALIGN(4);
+    *(.text.main)
     *(.text)                 /* .text sections (code) */
     *(.text*)                /* .text* sections (code) */
     *(.rodata)               /* .rodata sections (constants, strings, etc.) */
@@ -132,18 +133,23 @@ SECTIONS
 
   .ARM.extab :
   {
+    . = ALIGN(8);
     *(.ARM.extab* .gnu.linkonce.armextab.*)
+    . = ALIGN(8);
   } > m_text
 
   .ARM :
   {
+    . = ALIGN(8);
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
+    . = ALIGN(8);
   } > m_text
 
  .ctors :
   {
+    . = ALIGN(8);
     __CTOR_LIST__ = .;
     /* gcc uses crtbegin.o to find the start of
        the constructors, so we make sure it is
@@ -164,10 +170,12 @@ SECTIONS
     KEEP (*(SORT(.ctors.*)))
     KEEP (*(.ctors))
     __CTOR_END__ = .;
+    . = ALIGN(8);
   } > m_text
 
   .dtors :
   {
+    . = ALIGN(8);
     __DTOR_LIST__ = .;
     KEEP (*crtbegin.o(.dtors))
     KEEP (*crtbegin?.o(.dtors))
@@ -175,29 +183,36 @@ SECTIONS
     KEEP (*(SORT(.dtors.*)))
     KEEP (*(.dtors))
     __DTOR_END__ = .;
+    . = ALIGN(8);
   } > m_text
 
   .preinit_array :
   {
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
+    . = ALIGN(8);
   } > m_text
 
   .init_array :
   {
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__init_array_start = .);
     KEEP (*(SORT(.init_array.*)))
     KEEP (*(.init_array*))
     PROVIDE_HIDDEN (__init_array_end = .);
+    . = ALIGN(8);
   } > m_text
 
   .fini_array :
   {
+    . = ALIGN(8);
     PROVIDE_HIDDEN (__fini_array_start = .);
     KEEP (*(SORT(.fini_array.*)))
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
+    . = ALIGN(8);
   } > m_text
 
   .interrupts_ram :
