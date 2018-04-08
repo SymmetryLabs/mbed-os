@@ -42,7 +42,7 @@ void rtc_setup_oscillator(RTC_Type *base)
 }
 
 // Provide ethernet devices with a semi-unique MAC address from the UUID
-void mbed_mac_address(char *mac)
+void __attribute__((weak)) mbed_mac_address(char *mac)
 {
     uint16_t MAC[3];                        // 3 16 bits words for the MAC
 
