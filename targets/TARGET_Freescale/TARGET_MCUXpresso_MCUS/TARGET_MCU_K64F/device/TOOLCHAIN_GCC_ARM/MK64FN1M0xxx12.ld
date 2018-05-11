@@ -82,7 +82,8 @@ MEMORY
   m_flash_config        (RX)  : ORIGIN = MBED_APP_START + 0x400, LENGTH = 0x10
   m_text                (RX)  : ORIGIN = MBED_APP_START + 0x410, LENGTH = MBED_APP_SIZE - 0x410
   m_data                (RW)  : ORIGIN = 0x1FFF0000, LENGTH = 0x00010000
-  m_data_2              (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00030000
+  m_data_2              (RW)  : ORIGIN = 0x20000000, LENGTH = 0x0002C000
+  m_rtt                 (RW)  : ORIGIN = 0x2002C000, LENGTH = 0x00004000
 }
 
 /* Define output sections */
@@ -373,11 +374,18 @@ SECTIONS
 
   ASSERT(__StackLimit >= __HeapLimit, "Region m_data_2 overflowed with stack and heap")
 
+  .rtt (NOLOAD) :
+  {
+    . = ALIGN(4);
+    KEEP(*(.rtt))
+    . = ALIGN(4);
+  } > m_rtt
+
   /* Provide the physical memory boundaries for uVisor. */
   __uvisor_flash_start = ORIGIN(m_interrupts);
   __uvisor_flash_end = ORIGIN(m_text) + LENGTH(m_text);
   __uvisor_sram_start = ORIGIN(m_data);
-  __uvisor_sram_end = ORIGIN(m_data_2) + LENGTH(m_data_2);
+  __uvisor_sram_end = ORIGIN(m_rtt) + LENGTH(m_rtt);
   __uvisor_public_sram_start = __uvisor_sram_start;
   __uvisor_public_sram_end = __uvisor_sram_end;
 }
