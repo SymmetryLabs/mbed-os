@@ -217,10 +217,10 @@ void fault_print_str(char *fmtstr, uint32_t *values)
         if(fmtstr[i]=='%') {
             hex_to_str(values[vidx++],hex_str);
             for(idx=7; idx>=0; idx--) {
-                serial_putc(&stdio_uart, hex_str[idx]);
+                SEGGER_RTT_PutChar(0, hex_str[idx]);
             }
         } else {
-            serial_putc(&stdio_uart, fmtstr[i]);
+            SEGGER_RTT_PutChar(0, fmtstr[i]);
         }
         i++;
     }
