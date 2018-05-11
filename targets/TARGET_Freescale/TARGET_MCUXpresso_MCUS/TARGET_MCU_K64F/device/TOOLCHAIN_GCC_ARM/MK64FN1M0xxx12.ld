@@ -55,7 +55,7 @@ __ram_vector_table__ = 1;
 
 /* With the RTOS in use, this does not affect the main stack size. The size of
  * the stack where main runs is determined via the RTOS. */
-__stack_size__ = 0x400;
+__stack_size__ = 0x6000;
 
 /* This is the guaranteed minimum available heap size for an application. When
  * uVisor is enabled, this is also the maximum available heap size. The
