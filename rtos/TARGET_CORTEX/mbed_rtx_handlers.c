@@ -30,6 +30,7 @@
 
 extern void rtos_idle_loop(void);
 extern void thread_terminate_hook(osThreadId_t id);
+extern const char * svcRtxThreadGetName(osThreadId_t thread_id);
 
 __NO_RETURN void osRtxIdleThread (void *argument)
 {
@@ -47,7 +48,7 @@ __NO_RETURN uint32_t osRtxErrorNotify (uint32_t code, void *object_id)
         // Stack underflow detected for thread (thread_id=object_id)
         // Note: "overflow" is printed instead of "underflow" due to end user familiarity with overflow errors
         error("CMSIS-RTOS error: Stack overflow (status: 0x%X, task ID: 0x%X, task name: %s)\n\r",
-                code, object_id, osThreadGetName(object_id));
+                code, object_id, svcRtxThreadGetName(object_id));
         break;
       case osRtxErrorISRQueueOverflow:
         // ISR Queue overflow detected when inserting object (object_id)
