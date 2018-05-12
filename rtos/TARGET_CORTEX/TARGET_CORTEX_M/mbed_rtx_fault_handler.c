@@ -35,6 +35,7 @@ void print_register(char *regtag, uint32_t regval);
 #if DEVICE_SERIAL
 extern int stdio_uart_inited;
 extern serial_t stdio_uart;
+extern int putchar(int character);
 #endif
 
 //This is a handler function called from Fault handler to print the error information out.
@@ -191,11 +192,6 @@ void print_thread(osRtxThread_t *thread)
 /* Initializes std uart for spitting the info out */
 void fault_print_init()
 {
-#if DEVICE_SERIAL
-    if (!stdio_uart_inited) {
-        serial_init(&stdio_uart, STDIO_UART_TX, STDIO_UART_RX);
-    }
-#endif    
 }
 
 /* Limited print functionality which prints the string out to 
@@ -217,10 +213,10 @@ void fault_print_str(char *fmtstr, uint32_t *values)
         if(fmtstr[i]=='%') {
             hex_to_str(values[vidx++],hex_str);
             for(idx=7; idx>=0; idx--) {
-                serial_putc(&stdio_uart, hex_str[idx]);
+                putchar(hex_str[idx]);
             }
         } else {
-            serial_putc(&stdio_uart, fmtstr[i]);
+            putchar(fmtstr[i]);
         }
         i++;
     }
