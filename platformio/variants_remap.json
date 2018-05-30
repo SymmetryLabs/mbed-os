@@ -27,6 +27,7 @@
     "frdm_k22f": "K22F",
     "frdm_kw41z": "KW41Z",
     "teensy31": "TEENSY3_1",
+    "teensy35": "K64F",
     "dfcm_nnn40": "DELTA_DFCM_NNN40",
     "samr21_xpro": "SAMR21G18A",
     "saml21_xpro_b": "SAML21J18A",
